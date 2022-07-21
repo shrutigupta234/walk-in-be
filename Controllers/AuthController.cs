@@ -29,6 +29,9 @@ namespace walk_in_api.Controllers
             SignUpResponse response = new SignUpResponse();
             try {
 
+                // call signup from dl layer
+                response = await _authDL.SignUp(request);
+
             }
             catch (Exception ex){
                 response.IsSuccess = false;
@@ -46,6 +49,8 @@ namespace walk_in_api.Controllers
 
             SignInResponse response = new SignInResponse();
             try {
+
+                response = await _authDL.SignIn(request);
 
             }
             catch (Exception ex){
