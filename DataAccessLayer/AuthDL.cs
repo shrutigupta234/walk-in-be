@@ -5,9 +5,13 @@ using System.Threading.Tasks;
 using walk_in_api.Model;
 using MySql.Data.MySqlClient;
 using System.Data.Common;
+using Scrypt;
+using System.Diagnostics;
 
 namespace walk_in_api.DataAccessLayer
 {
+
+    
     public class AuthDL : IAuthDL
     {
         public readonly IConfiguration _configuration;
@@ -20,6 +24,7 @@ namespace walk_in_api.DataAccessLayer
 
         public async Task<SignInResponse> SignIn(SignInRequest request)
         {
+            ScryptEncoder encoder = new ScryptEncoder();
              SignInResponse response = new SignInResponse();
             response.IsSuccess = true;
             response.Message = "Successful";
@@ -32,18 +37,42 @@ namespace walk_in_api.DataAccessLayer
                     await _mySqlConnection.OpenAsync();
                 }
 
-                string SqlQuery = @"SELECT * FROM walk.user WHERE username=@username and password=@password";
+                string SqlQuery = @"SELECT * FROM walk.user WHERE username=@username";
 
                 using(MySqlCommand sqlCommand = new MySqlCommand(SqlQuery, _mySqlConnection))
                 {
                     sqlCommand.CommandType = System.Data.CommandType.Text;
                     sqlCommand.CommandTimeout = 180;
                     sqlCommand.Parameters.AddWithValue("@username",request.username);
-                    sqlCommand.Parameters.AddWithValue("@password",request.password);
-                    
+                    // sqlCommand.Parameters.AddWithValue("@password",request.password);
+                    int count = 0;
                     using(DbDataReader dataReader = await sqlCommand.ExecuteReaderAsync()){
                         if(dataReader.HasRows){
-                            response.Message = "Login successful";
+
+                            // if(encoder.Compare(dataReader["password"].,encoder.Encode(request.password) )){
+
+                            // }
+                            // for (int i = 0; i < dataReader.FieldCount; i++){
+                            //     Console.WriteLine(dataReader.GetName(i));
+                            // }
+                            
+                            while(dataReader.Read()){
+                                if(count == 0){
+                                    String pwd = dataReader["password"].ToString();
+                                    
+                                    
+                                    if(encoder.Compare(request.password, pwd)){
+                                        response.Message = "Login successful";
+                                    } else {
+                                        response.IsSuccess = false;
+                                        response.Message = "Login Failed";
+                                    }
+                                } else {
+                                    break;
+                                }
+                                count++;
+                            }
+                            
                         }
                         else{
                             response.IsSuccess = false;
@@ -71,6 +100,7 @@ namespace walk_in_api.DataAccessLayer
 
         public async Task<SignUpResponse> SignUp(SignUpRequest request)
         {
+            ScryptEncoder encoder = new ScryptEncoder();
             SignUpResponse response = new SignUpResponse();
             response.IsSuccess = true;
             response.Message = "Successful";
@@ -96,7 +126,7 @@ namespace walk_in_api.DataAccessLayer
                     sqlCommand.CommandType = System.Data.CommandType.Text;
                     sqlCommand.CommandTimeout = 180;
                     sqlCommand.Parameters.AddWithValue("@username",request.username);
-                    sqlCommand.Parameters.AddWithValue("@password",request.password);
+                    sqlCommand.Parameters.AddWithValue("@password",encoder.Encode(request.password));
                     int Status = await sqlCommand.ExecuteNonQueryAsync();
 
                     if(Status <= 0){

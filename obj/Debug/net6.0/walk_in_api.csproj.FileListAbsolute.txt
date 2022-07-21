@@ -44,3 +44,4 @@ E:\walk_in_api\obj\Debug\net6.0\refint\walk_in_api.dll
 E:\walk_in_api\obj\Debug\net6.0\walk_in_api.pdb
 E:\walk_in_api\obj\Debug\net6.0\walk_in_api.genruntimeconfig.cache
 E:\walk_in_api\obj\Debug\net6.0\ref\walk_in_api.dll
+E:\walk_in_api\bin\Debug\net6.0\Scrypt.dll

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HajZ7nDhVqtIVZbqyNZA8eWkr906OcgfCuNToHFSHROg59bukGs6lPy9AKNS56CMaNHpDNemiePOqwf9oLLmpQ==",
+  "dgSpecHash": "I+iDAoHGXOAepUai99kTecczyaC3n8wl0inLaRxCITM1GM12ca4OeqPYEerF9pdVWXh8YIRSVubx4UjkY8aWtg==",
   "success": true,
   "projectFilePath": "E:\\walk_in_api\\walk_in_api.csproj",
   "expectedPackageFiles": [
@@ -14,6 +14,7 @@
     "C:\\Users\\Shruti\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Shruti\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\Shruti\\.nuget\\packages\\mysql.data\\8.0.29\\mysql.data.8.0.29.nupkg.sha512",
+    "C:\\Users\\Shruti\\.nuget\\packages\\scrypt.net\\1.3.0\\scrypt.net.1.3.0.nupkg.sha512",
     "C:\\Users\\Shruti\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\Shruti\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
     "C:\\Users\\Shruti\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
