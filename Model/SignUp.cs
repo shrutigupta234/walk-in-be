@@ -26,6 +26,7 @@ namespace walk_in_api.Model
         public string? lname {get; set;}
 
         [Required]
+        [EmailAddress]
         public string? email {get; set;}
 
         [Required]
