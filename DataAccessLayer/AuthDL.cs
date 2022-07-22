@@ -33,9 +33,10 @@ namespace walk_in_api.DataAccessLayer
                     await _mySqlConnection.OpenAsync();
                 }
 
-                string SqlQuery = @"SELECT walk_in.start_date, walk_in.end_date, walk_in.expires_by, walk_in.title AS walk_in_title,
-       walk.job_roles.title AS job_role_title, 
-       time_slots.time_start, time_slots.time_end,
+                string SqlQuery = @"SELECT walk_in.start_date, walk_in.end_date,walk_in.expires_by, walk_in.title AS walk_in_title,
+       Group_concat(distinct job_roles.title) as job_role_title,
+       group_concat(distinct time_slots.time_start) as time_start,
+        group_concat(distinct time_slots.time_end) as time_end,
        location.city   
        FROM walk_in
 INNER JOIN walk_in_has_job_roles
@@ -47,7 +48,8 @@ INNER JOIN walk_in_has_time_slots
 INNER JOIN time_slots
   ON time_slots.id = walk_in_has_time_slots.time_slots_id
 INNER JOIN location
-  ON  walk_in.location_id= location.id ;";
+  ON  walk_in.location_id= location.id 
+Group by walk_in.id;";
 
                 using(MySqlCommand sqlCommand = new MySqlCommand(SqlQuery, _mySqlConnection))
                 {
