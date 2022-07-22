@@ -13,6 +13,7 @@ namespace walk_in_api.DataAccessLayer
         public Task<SignInResponse> SignIn(SignInRequest request);
 
         public Task<ReadAllWalkInResponse> ReadAllWalkIn();
+        public Task<ReadWalkInByIdResponse> ReadWalkInById(ReadWalkInByIdRequest request);
 
         // public Task<W> WalkIn(SignInRequest request);
     }

@@ -83,6 +83,27 @@ namespace walk_in_api.Controllers
 
 
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ReadWalkInById(ReadWalkInByIdRequest request)
+        {
+
+            ReadWalkInByIdResponse response = new ReadWalkInByIdResponse();
+            try {
+
+                // call signup from dl layer
+                response = await _authDL.ReadWalkInById(request);
+
+            }
+            catch (Exception ex){
+                response.IsSuccess = false;
+                response.Message = ex.Message;
+            }
+
+            return Ok(response);
+
+
+        }
         
     }
 }
