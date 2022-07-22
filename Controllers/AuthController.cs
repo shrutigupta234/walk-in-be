@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using walk_in_api.DataAccessLayer;
 using walk_in_api.Model;
+using walk_in_api.ServiceLayer;
 
 namespace walk_in_api.Controllers
 {
@@ -14,7 +15,6 @@ namespace walk_in_api.Controllers
     public class AuthController : Controller
     {
         public readonly IAuthDL _authDL;
-        
         // constructor
         public AuthController(IAuthDL authDL){
             //assign interface props
@@ -51,6 +51,27 @@ namespace walk_in_api.Controllers
             try {
 
                 response = await _authDL.SignIn(request);
+
+            }
+            catch (Exception ex){
+                response.IsSuccess = false;
+                response.Message = ex.Message;
+            }
+
+            return Ok(response);
+
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ReadAllWalkIn()
+        {
+
+            ReadAllWalkInResponse response = new ReadAllWalkInResponse();
+            try {
+
+                // call signup from dl layer
+                response = await _authDL.ReadAllWalkIn();
 
             }
             catch (Exception ex){
